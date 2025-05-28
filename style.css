@@ -1,0 +1,75 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+.typewriter {
+  overflow: hidden;
+  border-right: .15em solid orange;
+  white-space: nowrap;
+  animation: typing 3s steps(30, end), blink .75s step-end infinite;
+}
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+@keyframes blink {
+  from, to { border-color: transparent }
+  50% { border-color: orange; }
+}
+#warning {
+  color: red;
+  display: none;
+  margin-top: 10px;
+}
+#preview {
+  margin-top: 20px;
+  max-width: 300px;
+  max-height: 300px;
+  border: 1px solid #ddd;
+}
+#download {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #e91e63, #9c27b0);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  display: none;
+}
+footer {
+  margin-top: 40px;
+  font-size: 12px;
+  text-align: center;
+}
+#help {
+  margin-top: 20px;
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+#frameOptions {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.frame-thumb {
+  width: 60px;
+  height: auto;
+  border: 2px solid #ccc;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.frame-thumb:hover {
+  transform: scale(1.1);
+}

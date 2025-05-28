@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PLSCB 2k25 Photo Frame</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+</head>
+<body>
+  <h1 class="typewriter">Make Your Own Photo Now</h1>
+
+  <input type="file" id="upload" accept="image/*" />
+  <p id="warning">Please upload a portrait (3:4 ratio) image.</p>
+
+  <div id="frameOptions">
+    <img src="frame1.png" class="frame-thumb" data-frame="frame1.png" />
+    <img src="frame2.png" class="frame-thumb" data-frame="frame2.png" />
+    <img src="frame3.png" class="frame-thumb" data-frame="frame3.png" />
+    <img src="frame4.png" class="frame-thumb" data-frame="frame4.png" />
+  </div>
+
+  <img id="preview" src="" />
+  <button id="download">Download Framed Image</button>
+
+  <p id="visitorCount">Total Visitor: 00</p>
+  <p id="help" onclick="window.open('https://www.facebook.com/TanbirHasan30', '_blank')">Having issues? Click here</p>
+
+  <footer>©Tanbir Hasan<br/>Developed by: Tanbir Hasan</footer>
+
+  <script src="script.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyArGGpSXTYSGKH7K9OehDjiG_aixYxCe64",
+      authDomain: "total-visitor.firebaseapp.com",
+      databaseURL: "https://total-visitor-default-rtdb.firebaseio.com",
+      projectId: "total-visitor",
+      storageBucket: "total-visitor.appspot.com",
+      messagingSenderId: "281352929135",
+      appId: "1:281352929135:web:01e5d610579d9e3913b29a",
+      measurementId: "G-0JP397970C"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const visitorRef = db.ref("visitors");
+
+    const hasVisited = localStorage.getItem("plscb_visited");
+
+    function updateVisitorDisplay(count) {
+      const display = document.getElementById("visitorCount");
+      display.textContent = "Total Visitor: " + String(count).padStart(2, "0");
+    }
+
+    if (!hasVisited) {
+      visitorRef.transaction(c => (c || 0) + 1).then(() => {
+        localStorage.setItem("plscb_visited", "true");
+        visitorRef.once("value").then(snapshot => updateVisitorDisplay(snapshot.val()));
+      });
+    } else {
+      visitorRef.once("value").then(snapshot => updateVisitorDisplay(snapshot.val()));
+    }
+  </script>
+</body>
+</html>
